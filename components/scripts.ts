@@ -1,7 +1,10 @@
 
+//COLORES
+//EAACAF
+
 type Categories = {
     id: string;
-    nombre: string;
+    name: string;
     slug: string;
 }
 
@@ -25,12 +28,67 @@ const generateId = ():string => {
 
     for (let i = 0; i < 21; i++) {
         id += charts.charAt(Math.floor(Math.random() * charts.length))
-        if(i % 5 === 1){
-            id += '-'
-        }
     }
 
     return id;
 }
 
-console.log(generateId());
+const getStorage = () => {
+    let locStorage: LocalStorage = JSON.parse(localStorage.getItem("data"));
+    
+    if(!locStorage){
+        locStorage = {
+            categories: [
+                {
+                    name:'Comida',
+                    slug:'comida',
+                    id: generateId(),
+                },
+                {
+                    name:'Servicios',
+                    slug:'servicios',
+                    id: generateId(),
+
+                },
+                {
+                    name:'Salidas',
+                    slug:'salidas',
+                    id: generateId(),
+
+                },
+                {
+                    name:'Transporte',
+                    slug:'transporte',
+                    id: generateId(),
+                },
+                {
+                    name:'Educación',
+                    slug:'educacion',
+                    id: generateId(),
+                },
+                {
+                    name:'Trabajo',
+                    slug:'trabajo',
+                    id: generateId(),
+                }
+            ], 
+            operations : []
+        }
+        localStorage.setItem("data",  JSON.stringify(locStorage));
+    }
+
+
+
+    return locStorage;
+}
+
+const init = () => {
+    getStorage();
+    // getListOperations():
+}
+
+init();
+
+
+
+
