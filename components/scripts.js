@@ -50,8 +50,3 @@ var getStorage = function () {
     }
     return locStorage;
 };
-var init = function () {
-    getStorage();
-    // getListOperations():
-};
-init();

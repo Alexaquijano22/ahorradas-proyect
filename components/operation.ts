@@ -6,9 +6,6 @@ const newType = document.getElementById("newType");
 const newCategory = document.getElementById("newCategory");
 const newDate = document.getElementById("newDate");
 
-//Operations
-const listOperations = document.getElementById("list-operations");
-
 
 formNewOperation.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -23,12 +20,7 @@ formNewOperation.addEventListener("submit", (e) => {
 
     data.operations.push(newOperation);
     localStorage.setItem("data",  JSON.stringify(data));
+
+    window.location.href = "./index.html"
 })
 
-const getListOperations = (data: LocalStorage) => {
-    for(let i = 0; i < data.operations.length; i++){
-        console.log(i);
-    }
-}
-
-getListOperations();
