@@ -6,3 +6,8 @@ var newOperation = {
     amount: 0,
     type: ""
 };
+var newCategory = {
+    id: '',
+    name: '',
+    slug: ''
+};
