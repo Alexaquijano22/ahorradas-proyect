@@ -1,33 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <title>AhorrAdas</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./assets/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./assets//styles/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <title>AhorrAdas</title>
 </head>
+
 <body>
-
-    <main>
-        <div>
-            <section>
-                <h2>Balance</h2>
-                <div>
-
-                </div>
-            </section>
-            <section>
-                <h2>Filtros</h2>
-            </section>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">AhorrADAs</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="./index.html">Balance</a>
+          <a class="nav-link" href="./categories.html">Categorias</a>
+          <a class="nav-link" href="./reports.html">Reporte</a>
         </div>
-       <div>
-           <section>
-               <h2>Operaciones</h2>
-           </section>
-       </div>
-    </main>
-    <script src="./components/scripts.js"></script>
-    <script src="./components/categories.js"></script>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section mt-3">
+      <div class="container">
+        <div class="columns is-multiline m-2">
+          <div class="item_card">
+            <h3>Balance</h3>
+            <div class="container-space">
+              <p>Ganancias</p>
+              <p>+$0</p>
+            </div>
+            <div class="container-space">
+              <p>Gastos</p>
+              <p>-$0</p>
+            </div>
+            <div class="container-space">
+              <p>Total</p>
+              <p>$0</p>
+            </div>
+          </div>
+          <div class="item_card mt-4">
+            <div class="d-flex">
+              <h3>Filtros</h3>
+              <p>Ocultar filtros</p>
+            </div>
+            <div class="d-flex flex-column">
+              <label>Tipo</label>
+              <select name="" id="">
+                <option value="1">Todos</option>
+                <option value="2">Gastos</option>
+                <option value="3">Ganancias</option>
+              </select>
+
+            </div>
+            <div class="d-flex flex-column">
+              <label>Categoría</label>
+              <select name="" id="">
+                <option value="1">Todas</option>
+              </select>
+            </div>
+            <div class="d-flex flex-column">
+              <label>Desde</label>
+              <input type="date"></input>
+            </div>
+            <div class="d-flex flex-column">
+              <label>Ordenar por</label>
+              <select name="" id="">
+                <option value="1">Más reciente</option>
+                <option value="2">Menos reciente</option>
+                <option value="3">Mayor monto</option>
+                <option value="4">Menor monto</option>
+                <option value="5">A/Z</option>
+                <option value="6">Z/A</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="item_card col m-2">
+          <div class="d-flex justify-content-between">
+            <h3>Operaciones</h3>
+            <a href="./new-operation.html">
+              <button>+ Nueva operacion</button>
+            </a>
+          </div>
+          <div class="list-operations"></div>
+
+
+
+        </div>
+      </div>
+
+
+    </section>
+
+
+  </main>
+  <script src="./components/categories.js"></script>
+  <script src="./components/scripts.js"></script>
 </body>
+
 </html>
