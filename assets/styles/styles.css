@@ -24,6 +24,19 @@
     justify-content: space-between;
 }
 
+.nav-bg{
+    background-color: #8C61D6;
+}
+
+.btn-bg-color{
+    background-color: #8C61D6;
+    color:white
+}
+
+.btn-bg-color-light{
+    background-color: thistle;
+}
+
 
 
 @media (max-width: 1020px){

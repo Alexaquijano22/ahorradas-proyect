@@ -5,8 +5,6 @@ var newAmout = document.getElementById("newAmout");
 var newType = document.getElementById("newType");
 var newCategory = document.getElementById("newCategory");
 var newDate = document.getElementById("newDate");
-//Operations
-var listOperations = document.getElementById("list-operations");
 formNewOperation.addEventListener("submit", function (e) {
     e.preventDefault();
     console.log(e);
@@ -19,10 +17,5 @@ formNewOperation.addEventListener("submit", function (e) {
     newOperation.type = newType.value;
     data.operations.push(newOperation);
     localStorage.setItem("data", JSON.stringify(data));
+    window.location.href = "./index.html";
 });
-var getListOperations = function (data) {
-    for (var i = 0; i < data.operations.length; i++) {
-        console.log(i);
-    }
-};
-getListOperations();
