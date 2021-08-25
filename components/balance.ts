@@ -100,7 +100,10 @@ const getBalance = () => {
     let balance = sumEarning - sumExpense
     const earningTxt = document.createTextNode(`+$ ${sumEarning}`)
     const expenseTxt = document.createTextNode(`-$ ${sumExpense}`)
-    const balanceTxt = document.createTextNode(`$ ${balance}`)
+    const balanceTxt = document.createTextNode(`${balance === 0 ? "" : balance < 0 ? "-" : "+"}$ ${balance}`)
+    earning.setAttribute("class", "text-success")
+    expense.setAttribute("class", "text-danger")
+    totalBalance.setAttribute("class", `${balance === 0 ? ".text-dark" : balance < 0 ? "text-danger" : "text-success"}`)
     earning.appendChild(earningTxt)
     expense.appendChild(expenseTxt)
     totalBalance.appendChild(balanceTxt)

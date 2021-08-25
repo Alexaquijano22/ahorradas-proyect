@@ -32,17 +32,9 @@ var createObjectCategories = function () {
 };
 var createObjectDates = function () {
     operations.map(function (operacion) {
-        var specificDate = '';
         var date = new Date(operacion.date);
-        var day = date.getDate() + 1;
         var month = date.getMonth() + 1;
         var year = date.getFullYear();
-        if (month < 10) {
-            specificDate = day + "-0" + month + "-" + year;
-        }
-        else {
-            specificDate = day + "-" + month + "-" + year;
-        }
         if (!objectYear[year]) {
             objectYear[year] = {};
         }
@@ -60,19 +52,21 @@ var calcHighEarning = function (operations) {
     var operationsOrder = operations.sort(function (a, b) { return b.amount - a.amount; });
     var highEarningLabel = document.createElement("label");
     var highEarningTxt = document.createTextNode(operationsOrder[0].category);
-    var highEarningTxtValue = document.createTextNode("" + operationsOrder[0].amount);
+    var highEarningTxtValue = document.createTextNode("+$ " + operationsOrder[0].amount);
     highEarningLabel.appendChild(highEarningTxt);
     highEarning.appendChild(highEarningLabel);
     highEarningValue.appendChild(highEarningTxtValue);
+    highEarningValue.classList.add("text-success");
 };
 var calcHighExpense = function (operations) {
     var operationsOrder = operations.sort(function (a, b) { return b.amount - a.amount; });
     var highExpenseLabel = document.createElement("label");
     var highExpenseTxt = document.createTextNode(operationsOrder[0].category);
-    var highExpenseTxtValue = document.createTextNode("" + operationsOrder[0].amount);
+    var highExpenseTxtValue = document.createTextNode("-$ " + operationsOrder[0].amount);
     highExpenseLabel.appendChild(highExpenseTxt);
     highExpense.appendChild(highExpenseLabel);
     highExpenseValue.appendChild(highExpenseTxtValue);
+    highExpenseValue.classList.add("text-danger");
 };
 var calcHighBalance = function () {
     var maxBalance = 0;
@@ -86,10 +80,11 @@ var calcHighBalance = function () {
     }
     var highBalanceLabel = document.createElement("label");
     var highBalanceTxt = document.createTextNode(categoryName);
-    var highBalanceTxtValue = document.createTextNode("" + maxBalance);
+    var highBalanceTxtValue = document.createTextNode("+$ " + maxBalance);
     highBalanceLabel.appendChild(highBalanceTxt);
     highBalance.appendChild(highBalanceLabel);
     highBalanceValue.appendChild(highBalanceTxtValue);
+    highBalanceValue.classList.add("text-dark");
 };
 var calcHighEarningMonth = function () {
     var maxVal = 0;
@@ -115,10 +110,11 @@ var calcHighEarningMonth = function () {
     }
     var highEarningMonthLabel = document.createElement("label");
     var highEarningMonthTxt = document.createTextNode(highMonth);
-    var highEarningMonthTxtValue = document.createTextNode("" + maxVal);
+    var highEarningMonthTxtValue = document.createTextNode("+$ " + maxVal);
     highEarningMonthLabel.appendChild(highEarningMonthTxt);
     highEarningMonth.appendChild(highEarningMonthLabel);
     highEarningMonthValue.appendChild(highEarningMonthTxtValue);
+    highEarningMonthValue.classList.add("text-success");
 };
 var calcHighExpenseMonth = function () {
     var maxVal = 0;
@@ -144,10 +140,11 @@ var calcHighExpenseMonth = function () {
     }
     var highExpenseMonthLabel = document.createElement("label");
     var highExpenseMonthTxt = document.createTextNode(highMonth);
-    var highExpenseMonthTxtValue = document.createTextNode("" + maxVal);
+    var highExpenseMonthTxtValue = document.createTextNode("-$ " + maxVal);
     highExpenseMonthLabel.appendChild(highExpenseMonthTxt);
     highExpenseMonth.appendChild(highExpenseMonthLabel);
     highExpenseMonthValue.appendChild(highExpenseMonthTxtValue);
+    highExpenseMonthValue.classList.add("text-danger");
 };
 var calculateBalance = function (ganancia, gasto) {
     var gananciaValue = ganancia === undefined ? 0 : ganancia;
@@ -163,15 +160,16 @@ var getTotalCategories = function () {
         var divExpense = document.createElement("div");
         var divBalance = document.createElement("div");
         var categoryTxt = document.createTextNode(prop);
-        var earningTxt = document.createTextNode("$ " + (objectCategories[prop].Ganancias === undefined ? 0 : objectCategories[prop].Ganancias));
-        var expenseTxt = document.createTextNode("$ " + (objectCategories[prop].Gastos === undefined ? 0 : objectCategories[prop].Gastos));
-        var balanceTxt = document.createTextNode("$ " + calculateBalance(objectCategories[prop].Ganancias, objectCategories[prop].Gastos));
+        var earningTxt = document.createTextNode("+$ " + (objectCategories[prop].Ganancias === undefined ? 0 : objectCategories[prop].Ganancias));
+        var expenseTxt = document.createTextNode("-$ " + (objectCategories[prop].Gastos === undefined ? 0 : objectCategories[prop].Gastos));
+        var valueBalance = calculateBalance(objectCategories[prop].Ganancias, objectCategories[prop].Gastos);
+        var balanceTxt = document.createTextNode(" " + (valueBalance < 0 ? "-" : "+") + "$ " + (valueBalance < 0 ? Math.abs(valueBalance) : valueBalance));
         //Styles
         div.setAttribute("class", "row mt-3");
         divCategory.setAttribute("class", "col-6");
-        divEarning.setAttribute("class", "col-2 col d-flex justify-content-center");
-        divExpense.setAttribute("class", "col-2 col d-flex justify-content-center");
-        divBalance.setAttribute("class", "col-2 col d-flex justify-content-center");
+        divEarning.setAttribute("class", "col-2 col d-flex justify-content-center text-success");
+        divExpense.setAttribute("class", "col-2 col d-flex justify-content-center text-danger");
+        divBalance.setAttribute("class", "" + (valueBalance < 0 ? "col-2 col d-flex justify-content-center text-danger" : "col-2 col d-flex justify-content-center text-success"));
         divCategory.appendChild(categoryTxt);
         divEarning.appendChild(earningTxt);
         divExpense.appendChild(expenseTxt);
@@ -203,15 +201,16 @@ var getTotalMonths = function () {
                 "Septiembre" : i === "10" ?
                 "Octubre" : i === "11" ?
                 "Noviembre" : "Diciembre") + " de " + prop);
-            var earningTxt = document.createTextNode("$ " + (objectYear[prop][i].Ganancias === undefined ? 0 : objectYear[prop][i].Ganancias));
-            var expenseTxt = document.createTextNode("$ " + (objectYear[prop][i].Gastos === undefined ? 0 : objectYear[prop][i].Gastos));
-            var balanceTxt = document.createTextNode("$ " + calculateBalance(objectYear[prop][i].Ganancias, objectYear[prop][i].Gastos));
+            var earningTxt = document.createTextNode("+$ " + (objectYear[prop][i].Ganancias === undefined ? 0 : objectYear[prop][i].Ganancias));
+            var expenseTxt = document.createTextNode("-$ " + (objectYear[prop][i].Gastos === undefined ? 0 : objectYear[prop][i].Gastos));
+            var valueBalance = calculateBalance(objectYear[prop][i].Ganancias, objectYear[prop][i].Gastos);
+            var balanceTxt = document.createTextNode("$ " + (valueBalance < 0 ? "-" : "+") + "$ " + (valueBalance < 0 ? Math.abs(valueBalance) : valueBalance));
             //Styles
             div.setAttribute("class", "row mt-3");
             divMonth.setAttribute("class", "col-6");
-            divEarning.setAttribute("class", "col-2 col d-flex justify-content-center");
-            divExpense.setAttribute("class", "col-2 col d-flex justify-content-center");
-            divBalance.setAttribute("class", "col-2 col d-flex justify-content-center");
+            divEarning.setAttribute("class", "col-2 col d-flex justify-content-center text-success");
+            divExpense.setAttribute("class", "col-2 col d-flex justify-content-center text-danger");
+            divBalance.setAttribute("class", "" + (valueBalance < 0 ? "col-2 col d-flex justify-content-center text-danger" : "col-2 col d-flex justify-content-center text-success"));
             divMonth.appendChild(monthTxt);
             divEarning.appendChild(earningTxt);
             divExpense.appendChild(expenseTxt);

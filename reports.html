@@ -1,86 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcut icon" href="./assets/img/favicon.ico" type="image/x-icon">
-        <link rel="stylesheet" href="./assets//styles/styles.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-        <title>AhorrAdas</title>
-    </head>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./assets/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./assets//styles/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <title>AhorrAdas</title>
+</head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">AhorrADAs</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page" href="./index.html">Balance</a>
-              <a class="nav-link" href="./categories.html">Categorias</a>
-              <a class="nav-link" href="./reports.html">Reporte</a>
-            </div>
-          </div>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid d-flex align-items-center">
+      <div class="d-flex align-items-center">
+        <i class="primary-icon bi bi-wallet2 me-2"></i>
+        <h1 class="m-1">AhorrADAs</h1>
+      </div>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="d-flex align-items-center nav-link active" aria-current="page" href="./index.html">
+            <i class="icon-secundary bi bi-file-earmark-text"></i>
+            <h5 class="m-2">Balance</h5>
+          </a>
+          <a class="d-flex align-items-center nav-link" href="./categories.html">
+            <i class="icon-secundary bi bi-journal-plus"></i>
+            <h5 class="m-2">Categorias</h5>
+          </a>
+          <a class="d-flex align-items-center nav-link" href="./reports.html">
+            <i class="icon-secundary bi bi-clipboard-data"></i>
+            <h5 class="m-2">Reporte</h5>
+          </a>
         </div>
-      </nav>
-      <main>
-        <section class="section mt-3">
-          <div class="container ">
-              <div class="item_card col-12 col-lg-8">
-                  <h2>Reportes</h2>
-                  <h5 class="mt-3">Resumen</h5>
-                  <div class="row mt-3">
-                    <div class="col-6">Categoría con mayor ganancia</div>
-                    <div class="col d-flex justify-content-center" id="highEarning" class="col-3"></div>
-                    <div class="col d-flex justify-content-center" id="highEarningValue" class="col-3"></div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col-6">Categoría con mayor gasto</div>
-                    <div class="col d-flex justify-content-center" id="highExpense" class="col-3"></div>
-                    <div class="col d-flex justify-content-center" id="highExpenseValue" class="col-3"></div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col-6">Categoría con mayor balance</div>
-                    <div class="col d-flex justify-content-center" id="highBalance" class="col-3"></div>
-                    <div class="col d-flex justify-content-center"id="highBalanceValue" class="col-3"></div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col-6">Mes con mayor ganancia</div>
-                    <div class="col d-flex justify-content-center" id="highEarningMonth" class="col-3"></div>
-                    <div class="col d-flex justify-content-center" id="highEarningMonthValue" class="col-3"></div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col-6">Mes con mayor gasto</div>
-                    <div class="col d-flex justify-content-center" id="highExpenseMonth" class="col-3"></div>
-                    <div class="col d-flex justify-content-center" id="highExpenseMonthValue" class="col-3"></div>
-                  </div>
-                  <h5 class="mt-5 mb-4">Totales por categorías</h5>
-                  <div class="row">
-                    <div class="col-6">Categoría</div>
-                    <div class="col-2 col d-flex justify-content-center">Ganancias</div>
-                    <div class="col-2 col d-flex justify-content-center">Gastos</div>
-                    <div class="col-2 col d-flex justify-content-center">Balance</div>
-                  </div>
-                  <div id="list-categories"></div>
-                  <h5 class="mt-5 mb-4">Totales por mes</h5>
-                  <div class="row">
-                    <div class="col-6">Mes</div>
-                    <div class="col-2 col d-flex justify-content-center">Ganancias</div>
-                    <div class="col-2 col d-flex justify-content-center">Gastos</div>
-                    <div class="col-2 col d-flex justify-content-center">Balance</div>
-                  </div>
-                  <div id="months-total"></div>
-              </div>
+      </div>
+    </div>
+  </nav>
+  <main>
+    <section class="section mt-3">
+      <div class="container ">
+        <div style="background-color: #E87D9710;" class="item_card col-12 col-lg-8">
+          <h2>Reportes</h2>
+          <h5 class="mt-3">Resumen</h5>
+          <div class="row mt-3">
+            <div class="col-6">Categoría con mayor ganancia</div>
+            <div class="col d-flex justify-content-center" id="highEarning" class="col-3"></div>
+            <div class="col d-flex justify-content-center" id="highEarningValue" class="col-3"></div>
           </div>
-        </section>
-    </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-  crossorigin="anonymous"></script>
+          <div class="row mt-3">
+            <div class="col-6">Categoría con mayor gasto</div>
+            <div class="col d-flex justify-content-center" id="highExpense" class="col-3"></div>
+            <div class="col d-flex justify-content-center" id="highExpenseValue" class="col-3"></div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-6">Categoría con mayor balance</div>
+            <div class="col d-flex justify-content-center" id="highBalance" class="col-3"></div>
+            <div class="col d-flex justify-content-center" id="highBalanceValue" class="col-3"></div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-6">Mes con mayor ganancia</div>
+            <div class="col d-flex justify-content-center" id="highEarningMonth" class="col-3"></div>
+            <div class="col d-flex justify-content-center" id="highEarningMonthValue" class="col-3"></div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-6">Mes con mayor gasto</div>
+            <div class="col d-flex justify-content-center" id="highExpenseMonth" class="col-3"></div>
+            <div class="col d-flex justify-content-center" id="highExpenseMonthValue" class="col-3"></div>
+          </div>
+          <h5 class="mt-5 mb-4">Totales por categorías</h5>
+          <div class="row">
+            <div class="col-6">Categoría</div>
+            <div class="col-2 col d-flex justify-content-center">Ganancias</div>
+            <div class="col-2 col d-flex justify-content-center">Gastos</div>
+            <div class="col-2 col d-flex justify-content-center">Balance</div>
+          </div>
+          <div id="list-categories"></div>
+          <h5 class="mt-5 mb-4">Totales por mes</h5>
+          <div class="row">
+            <div class="col-6">Mes</div>
+            <div class="col-2 col d-flex justify-content-center">Ganancias</div>
+            <div class="col-2 col d-flex justify-content-center">Gastos</div>
+            <div class="col-2 col d-flex justify-content-center">Balance</div>
+          </div>
+          <div id="months-total"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
   <script src="./components/scripts.js"></script>
   <script src="./components/reports.js"></script>
   <script src="./components/generalVariables.js"></script>
 </body>
+
 </html>
