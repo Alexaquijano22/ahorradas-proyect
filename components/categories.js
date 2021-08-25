@@ -41,6 +41,8 @@ var getListCategories = function () {
         div.setAttribute("class", "d-flex justify-content-between mt-3");
         edit.setAttribute("class", "me-4");
         listCategories.appendChild(div);
+        edit.setAttribute("class", "btn btn-outline-primary btn-sm me-2");
+        remove.setAttribute("class", "btn btn-outline-secondary btn-sm");
         edit.setAttribute("href", "./edit-category.html?category=" + category.name);
         remove.addEventListener("click", function () {
             removeCategory(category.id);

@@ -1,5 +1,79 @@
+*{
+    font-family: 'Nunito', sans-serif;
+}
+
 .navbar-collapse{
     flex-grow: unset !important;
+}
+
+h1, h2, h3, h4, h5, h6{
+    margin: 0px;
+    color: #563c38;
+}
+
+i{
+    color: #563c38;
+}
+
+.navbar{
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
+}
+
+.btn-primary{
+    background-color: #f8a89b !important;
+    border: 1px solid #f8a89b !important;
+    color: #563c38 !important;
+    outline: none !important;
+}
+
+.btn-primary:hover{
+    background-color: #ffa89a !important;
+    border: 1px solid #ffa89a !important;
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
+}
+
+.btn-outline-primary{
+    background-color: #f8a89b50 !important;
+    border: 1px solid #f8a89b !important;
+    color: #563c38 !important;
+    outline: none !important;
+    border-radius: 0.5rem !important;
+    transition: all 0.3s;
+}
+
+.btn-outline-primary:hover{
+    transition: all 0.3s;
+    border: 1px solid #ffa89a !important;
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
+}
+
+.btn-outline-secondary{
+    background-color: #fff !important;
+    border: 1px solid #C4847A !important;
+    color: #563c38 !important;
+    outline: none !important;
+    border-radius: 0.5rem !important;
+    transition: all 0.3s;
+}
+
+.btn-outline-secondary:hover{
+    transition: all 0.3s;
+    background-color: #C4847A10 !important;
+    border: 1px solid #C4847A !important;
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
+}
+
+
+.primary-icon{
+    font-size: 35px;
+}
+
+.icon-secundary{
+    font-size: 20px;
+}
+
+.navbar{
+    background-color: #f8a89b;
 }
 
 .section{
@@ -13,33 +87,19 @@
 
 .item_card{
     background-color: #fff;
+    /* background-color: #f8a89b; */
     border-radius: 6px;
     box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
     color: #4a4a4a;
     padding: 1.25rem;
 }
 
-.container-space{
-    display: flex;
-    justify-content: space-between;
-}
-
-.nav-bg{
-    background-color: #8C61D6;
-}
-
-.btn-bg-color{
-    background-color: #8C61D6;
-    color:white
-}
-
-.btn-bg-color-light{
-    background-color: thistle;
-}
-
 
 
 @media (max-width: 1020px){
+    .primary-icon{
+        font-size: 25px;
+    }
     .card{
         width: 100%;
     }
