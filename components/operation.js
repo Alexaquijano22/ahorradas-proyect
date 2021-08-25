@@ -18,7 +18,6 @@ var bringCategories = function () {
 };
 formNewOperation.addEventListener("submit", function (e) {
     e.preventDefault();
-    console.log(e);
     var data = getStorage();
     data.operations.push({
         category: newCategory.value,

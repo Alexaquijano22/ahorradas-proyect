@@ -12,7 +12,6 @@ const removeCategory = (id: string) => {
 const getListCategories = () => {
     listCategories.innerHTML = ''
     let data = getStorage()
-    console.log(data.categories);
     for(const category of data.categories){
         const div = document.createElement('div')
         const categoryDiv = document.createElement('div')
