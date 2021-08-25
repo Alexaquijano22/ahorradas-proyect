@@ -21,7 +21,6 @@ var removeCategory = function (id) {
 var getListCategories = function () {
     listCategories.innerHTML = '';
     var data = getStorage();
-    console.log(data.categories);
     var _loop_1 = function (category) {
         var div = document.createElement('div');
         var categoryDiv = document.createElement('div');

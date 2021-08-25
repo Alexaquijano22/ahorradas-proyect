@@ -207,7 +207,6 @@ for(const prop in objectCategories){
 const getTotalMonths = () => {
     for(const prop in objectYear){
         for(const i in objectYear[prop]){
-            console.log(objectYear[prop]);
             const div = document.createElement("div")
     
             const divMonth = document.createElement("div")

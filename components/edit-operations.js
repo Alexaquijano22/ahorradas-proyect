@@ -16,13 +16,11 @@ editType.value = type;
 editCategory.value = category;
 editDate.value = date;
 var bringCategory = function () {
-    console.log("hola");
     var data = getStorage();
     var categories = data.categories;
     for (var _i = 0, categories_1 = categories; _i < categories_1.length; _i++) {
         var category_1 = categories_1[_i];
         var option = document.createElement('option');
-        console.log(category_1.name);
         var optionTxt = document.createTextNode("" + category_1.name);
         option.appendChild(optionTxt);
         editCategory.appendChild(option);

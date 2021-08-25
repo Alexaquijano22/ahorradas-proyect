@@ -19,12 +19,10 @@ editCategory.value = category
 editDate.value = date
 
 const bringCategory = () => {
-    console.log("hola");
     let data = getStorage()
     let { categories } = data
     for(let category of categories){
         const option = document.createElement('option')
-        console.log(category.name);
         const optionTxt = document.createTextNode(`${category.name}`)
         option.appendChild(optionTxt)
         editCategory.appendChild(option)

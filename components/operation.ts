@@ -19,7 +19,6 @@ const bringCategories = () => {
 
 formNewOperation.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log(e);
     let data = getStorage();
     data.operations.push({
         category: newCategory.value,

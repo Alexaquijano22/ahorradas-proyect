@@ -186,7 +186,6 @@ var getTotalCategories = function () {
 var getTotalMonths = function () {
     for (var prop in objectYear) {
         for (var i in objectYear[prop]) {
-            console.log(objectYear[prop]);
             var div = document.createElement("div");
             var divMonth = document.createElement("div");
             var divEarning = document.createElement("div");

@@ -1,8 +1,32 @@
 
 //Operations
 const listOperations = document.getElementById("list-operations")
+const earning = document.getElementById("earning")
+const expense = document.getElementById("expense")
+const totalBalance = document.getElementById("totalBalance")
+
+let data = getStorage()
+const { operations } = data
+const objectCat = {}
+
+const objectBalance = async (operations) => {
+    objectCat = {}
+    operations.map((operacion) => {
+		if (!objectCat[operacion.category]) {
+			objectCat[operacion.category] = {};
+		}
+
+		if (!objectCat[operacion.category][operacion.type]) {
+			objectCat[operacion.category][operacion.type] = 0;
+		}
+		objectCat[operacion.category][operacion.type] += Number(operacion.amount);
+	});	
+    return objectCat
+}
+
 
 //Edit operations
+
 
 const editOperation = (id) => {
     const data = getStorage()
@@ -58,6 +82,29 @@ const getListOperations = (data: LocalStorage) => {
             editOperation(operation.id)
         })
     }
+    objectBalance(data.operations)
+    getBalance()
+    
+}
+
+const getBalance = () => {
+    earning.innerHTML = ""
+    expense.innerHTML = ""
+    totalBalance.innerHTML = ""
+    let sumEarning = 0
+    let sumExpense = 0
+    for(const prop in objectCat){
+        sumEarning += (isNaN(objectCat[prop].Ganancias) ? 0 : objectCat[prop].Ganancias)
+        sumExpense += (isNaN(objectCat[prop].Gastos) ? 0 : objectCat[prop].Gastos)
+    }
+    let balance = sumEarning - sumExpense
+    const earningTxt = document.createTextNode(`+$ ${sumEarning}`)
+    const expenseTxt = document.createTextNode(`-$ ${sumExpense}`)
+    const balanceTxt = document.createTextNode(`$ ${balance}`)
+    earning.appendChild(earningTxt)
+    expense.appendChild(expenseTxt)
+    totalBalance.appendChild(balanceTxt)
+
 }
 
 
