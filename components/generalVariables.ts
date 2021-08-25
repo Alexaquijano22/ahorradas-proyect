@@ -26,3 +26,9 @@ const newOperation = {
     amount: 0,
     type: "",
 }
+
+const newCategory = {
+    id: '',
+    name: '',
+    slug: ''
+}
