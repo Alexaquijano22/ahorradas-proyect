@@ -15,7 +15,7 @@ const getListOperations = (data: LocalStorage) => {
     listOperations.innerHTML = '';
     for(const operation of data.operations){
         const div = document.createElement('div')
-        const description = document.createElement('div')
+        const description = document.createElement('h6')
         const category = document.createElement('div')
         const date = document.createElement('div')
         const amount = document.createElement('div')
@@ -25,15 +25,17 @@ const getListOperations = (data: LocalStorage) => {
         const descriptionTxt = document.createTextNode(`${operation.description}`)
         const categoryTxt = document.createTextNode(`${operation.category}`)
         const dateTxt = document.createTextNode(`${operation.date}`)
-        const amountTxt = document.createTextNode(`${operation.amount}`)
+        const amountTxt = document.createTextNode(` ${operation.type === "Ganancias" ? "+" : "-"}$ ${operation.amount}`)
         const editTxt = document.createTextNode("Editar")
         const removeTxt = document.createTextNode("Eliminar")
         div.setAttribute("class", "row mb-3")
         description.setAttribute("class", "col")
         category.setAttribute("class", "col-3")
         date.setAttribute("class", "col d-flex justify-content-center")
-        amount.setAttribute("class", "col d-flex justify-content-center")
+        amount.setAttribute("class", `col d-flex justify-content-center ${operation.type === "Ganancias" ? "text-success" : "text-danger"}`)
         actions.setAttribute("class", "col-3 d-flex justify-content-center")
+        edit.setAttribute("class", "btn btn-outline-primary btn-sm")
+        remove.setAttribute("class", "btn btn-outline-secondary btn-sm")
         actions.appendChild(edit)
         actions.appendChild(remove)
         edit.classList.add("me-2")
@@ -49,7 +51,7 @@ const getListOperations = (data: LocalStorage) => {
         div.appendChild(amount)
         div.appendChild(actions)
         listOperations.appendChild(div)
-
+       
         edit.setAttribute("href", `./edit-operation.html?description=${operation.description}&amount=${operation.amount}&type=${operation.type}&category=${operation.category}&date=${operation.date}`)
 
         remove.addEventListener('click', () => {

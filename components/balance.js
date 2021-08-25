@@ -22,7 +22,7 @@ var getListOperations = function (data) {
     listOperations.innerHTML = '';
     var _loop_1 = function (operation) {
         var div = document.createElement('div');
-        var description = document.createElement('div');
+        var description = document.createElement('h6');
         var category = document.createElement('div');
         var date = document.createElement('div');
         var amount = document.createElement('div');
@@ -32,15 +32,17 @@ var getListOperations = function (data) {
         var descriptionTxt = document.createTextNode("" + operation.description);
         var categoryTxt = document.createTextNode("" + operation.category);
         var dateTxt = document.createTextNode("" + operation.date);
-        var amountTxt = document.createTextNode("" + operation.amount);
+        var amountTxt = document.createTextNode(" " + (operation.type === "Ganancias" ? "+" : "-") + "$ " + operation.amount);
         var editTxt = document.createTextNode("Editar");
         var removeTxt = document.createTextNode("Eliminar");
         div.setAttribute("class", "row mb-3");
         description.setAttribute("class", "col");
         category.setAttribute("class", "col-3");
         date.setAttribute("class", "col d-flex justify-content-center");
-        amount.setAttribute("class", "col d-flex justify-content-center");
+        amount.setAttribute("class", "col d-flex justify-content-center " + (operation.type === "Ganancias" ? "text-success" : "text-danger"));
         actions.setAttribute("class", "col-3 d-flex justify-content-center");
+        edit.setAttribute("class", "btn btn-outline-primary btn-sm");
+        remove.setAttribute("class", "btn btn-outline-secondary btn-sm");
         actions.appendChild(edit);
         actions.appendChild(remove);
         edit.classList.add("me-2");
