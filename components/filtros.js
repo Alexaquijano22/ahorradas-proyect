@@ -13,7 +13,7 @@ var operationType = document.getElementById("operationType");
 var operationCategory = document.getElementById("operationCategory");
 var operationDate = document.getElementById("operationDate");
 var operationOrder = document.getElementById("operationOrder");
-var newCategory = document.getElementById("newCategory");
+var listFiltered = [];
 var bringCategories = function () {
     var data = getStorage();
     var categories = data.categories;
@@ -25,33 +25,7 @@ var bringCategories = function () {
         operationCategory.appendChild(option);
     }
 };
-operationType.addEventListener("change", function (e) {
-    var data = getStorage();
-    var operations = data.operations;
-    var operationsUpdate = operations.filter(function (operation) {
-        if (e.target.value !== "Todos") {
-            return operation.type === e.target.value;
-        }
-        else {
-            return operation;
-        }
-    });
-    getListOperations(__assign(__assign({}, data), { operations: operationsUpdate }));
-});
-operationCategory.addEventListener("change", function (e) {
-    var data = getStorage();
-    var operations = data.operations;
-    var operationsUpdate = operations.filter(function (operation) {
-        if (e.target.value !== "Todas") {
-            return operation.category === e.target.value;
-        }
-        else {
-            return operation;
-        }
-    });
-    getListOperations(__assign(__assign({}, data), { operations: operationsUpdate }));
-});
-operationDate.addEventListener("change", function (e) {
+var updateOperations = function () {
     var data = getStorage();
     var operations = data.operations;
     var today = '';
@@ -65,47 +39,88 @@ operationDate.addEventListener("change", function (e) {
     else {
         today = year + "-" + month + "-" + day;
     }
-    var operationsUpdate = operations.filter(function (operation) {
-        if (operation.date >= e.target.value && operation.date <= today) {
-            return operation.date >= e.target.value && operation.date <= today;
+    if (operationType.value !== "" ||
+        operationCategory.value !== "" ||
+        operationDate.value !== "" ||
+        operationOrder.value !== "") {
+        if (operationType.value !== "Todos") {
+            console.log("Entro a buscar por tipo");
+            operations = operations.filter(function (operation) {
+                if (operationType.value !== "Todos") {
+                    return operation.type === operationType.value;
+                }
+                else {
+                    return operation;
+                }
+            });
         }
-    });
-    getListOperations(__assign(__assign({}, data), { operations: operationsUpdate }));
+        if (operationCategory.value !== "Todas") {
+            console.log("Entro a buscar por categoria");
+            operations = operations.filter(function (operation) {
+                if (operationCategory.value !== "Todos") {
+                    return operation.category === operationCategory.value;
+                }
+                else {
+                    return operation;
+                }
+            });
+            console.log(operations);
+        }
+        if (operationDate.value !== "") {
+            console.log("Entro a buscar por DIA");
+            console.log("Hola, soy fecha");
+            operations = operations.filter(function (operation) {
+                if (operation.date >= operationDate.value && operation.date <= today) {
+                    return operation.date >= operationDate.value && operation.date <= today;
+                }
+            });
+        }
+        if (operationOrder.value !== "") {
+            console.log("Entro a buscar por ORDEN");
+            if (operationOrder.value == "Menos reciente") {
+                operations.sort(function (a, b) { return new Date(a.date).getTime() - new Date(b.date).getTime(); });
+            }
+            else if (operationOrder.value == "Mayor monto") {
+                operations.sort(function (a, b) { return b.amount - a.amount; });
+            }
+            else if (operationOrder.value == "Menor monto") {
+                operations.sort(function (a, b) { return a.amount - b.amount; });
+            }
+            else if (operationOrder.value == "A/Z") {
+                operations.sort(function (a, b) {
+                    if (a.description < b.description)
+                        return -1;
+                    if (a.description > b.description)
+                        return 1;
+                    return 0;
+                });
+            }
+            else if (operationOrder.value == "Z/A") {
+                operations.sort(function (a, b) {
+                    if (a.description < b.description)
+                        return 1;
+                    if (a.description > b.description)
+                        return -1;
+                    return 0;
+                });
+            }
+            else {
+                operations.sort(function (a, b) { return new Date(b.date).getTime() - new Date(a.date).getTime(); });
+            }
+        }
+    }
+    getListOperations(__assign(__assign({}, data), { operations: operations }));
+};
+operationType.addEventListener("change", function (e) {
+    updateOperations();
+});
+operationCategory.addEventListener("change", function (e) {
+    updateOperations();
+});
+operationDate.addEventListener("change", function (e) {
+    updateOperations();
 });
 operationOrder.addEventListener("change", function (e) {
-    var data = getStorage();
-    var operations = data.operations;
-    var operationsUpdate;
-    if (e.target.value == "Menos reciente") {
-        operationsUpdate = operations.sort(function (a, b) { return new Date(a.date).getTime() - new Date(b.date).getTime(); });
-    }
-    else if (e.target.value == "Mayor monto") {
-        operationsUpdate = operations.sort(function (a, b) { return b.amount - a.amount; });
-    }
-    else if (e.target.value == "Menor monto") {
-        operationsUpdate = operations.sort(function (a, b) { return a.amount - b.amount; });
-    }
-    else if (e.target.value == "A/Z") {
-        operationsUpdate = operations.sort(function (a, b) {
-            if (a.description < b.description)
-                return -1;
-            if (a.description > b.description)
-                return 1;
-            return 0;
-        });
-    }
-    else if (e.target.value == "Z/A") {
-        operationsUpdate = operations.sort(function (a, b) {
-            if (a.description < b.description)
-                return 1;
-            if (a.description > b.description)
-                return -1;
-            return 0;
-        });
-    }
-    else {
-        operationsUpdate = operations.sort(function (a, b) { return new Date(b.date).getTime() - new Date(a.date).getTime(); });
-    }
-    getListOperations(__assign(__assign({}, data), { operations: operationsUpdate }));
+    updateOperations();
 });
 bringCategories();

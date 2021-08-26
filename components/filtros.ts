@@ -2,7 +2,8 @@ const operationType = document.getElementById("operationType")
 const operationCategory = document.getElementById("operationCategory")
 const operationDate = document.getElementById("operationDate")
 const operationOrder = document.getElementById("operationOrder")
-const newCategory = document.getElementById("newCategory")
+
+let listFiltered: Operations[] = []
 
 const bringCategories = () => {
     let data = getStorage()
@@ -15,33 +16,7 @@ const bringCategories = () => {
     }
 }
 
-operationType.addEventListener("change", (e) => {
-    let data = getStorage()
-    let { operations } = data
-    let operationsUpdate = operations.filter((operation) => {
-        if (e.target.value !== "Todos") {
-            return operation.type === e.target.value
-        } else {
-            return operation
-        }
-    })
-    getListOperations({ ...data, operations: operationsUpdate })
-})
-
-operationCategory.addEventListener("change", (e) => {
-    let data = getStorage()
-    let { operations } = data
-    let operationsUpdate = operations.filter((operation) => {
-        if (e.target.value !== "Todas") {
-            return operation.category === e.target.value
-        } else {
-            return operation
-        }
-    })
-    getListOperations({ ...data, operations: operationsUpdate })
-})
-
-operationDate.addEventListener("change", (e) => {
+const updateOperations = () => {
     let data = getStorage()
     let { operations } = data
     let today = '';
@@ -54,44 +29,91 @@ operationDate.addEventListener("change", (e) => {
     } else {
         today = `${year}-${month}-${day}`
     }
-    let operationsUpdate = operations.filter((operation) => {
-        if(operation.date >= e.target.value  && operation.date <= today){
-            return operation.date >= e.target.value  && operation.date <= today
+    if (operationType.value !== "" ||
+        operationCategory.value !== "" ||
+        operationDate.value !== "" ||
+        operationOrder.value !== "") {
+        if (operationType.value !== "Todos") {
+            console.log("Entro a buscar por tipo");
+            operations = operations.filter((operation) => {
+                if (operationType.value !== "Todos") {
+                    return operation.type === operationType.value
+                } else {
+                    return operation
+                }
+
+            })
         }
-        
-    })
-    getListOperations({ ...data, operations: operationsUpdate })
+        if (operationCategory.value !== "Todas") {
+            console.log("Entro a buscar por categoria");
+            operations = operations.filter((operation) => {
+                if (operationCategory.value !== "Todos") {
+                    return operation.category === operationCategory.value
+                } else {
+                    return operation
+                }
+
+            })
+            console.log(operations);
+        }
+        if (operationDate.value !== "") {
+            console.log("Entro a buscar por DIA");
+            console.log("Hola, soy fecha");
+            operations = operations.filter((operation) => {
+                if (operation.date >= operationDate.value && operation.date <= today) {
+                    return operation.date >= operationDate.value && operation.date <= today
+                }
+
+            })
+        }
+        if (operationOrder.value !== "") {
+            console.log("Entro a buscar por ORDEN");
+            if (operationOrder.value == "Menos reciente") {
+                operations.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+            } else if (operationOrder.value == "Mayor monto") {
+                operations.sort((a, b) => b.amount - a.amount);
+            } else if (operationOrder.value == "Menor monto") {
+                operations.sort((a, b) => a.amount - b.amount);
+            } else if (operationOrder.value == "A/Z") {
+                operations.sort((a, b) => {
+                    if (a.description < b.description) return -1;
+                    if (a.description > b.description) return 1;
+
+                    return 0;
+                });
+            } else if (operationOrder.value == "Z/A") {
+                operations.sort((a, b) => {
+
+                    if (a.description < b.description) return 1;
+                    if (a.description > b.description) return -1;
+
+                    return 0;
+                });
+            } else {
+                operations.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            }
+        }
+    }
+    getListOperations({ ...data, operations: operations })
+}
+
+
+operationType.addEventListener("change", (e) => {
+    updateOperations()
+})
+
+operationCategory.addEventListener("change", (e) => {
+    updateOperations()
+})
+
+operationDate.addEventListener("change", (e) => {
+    updateOperations()
 })
 
 operationOrder.addEventListener("change", (e) => {
-    let data = getStorage()
-    let { operations } = data
-    let operationsUpdate;
-    if (e.target.value == "Menos reciente") {
-        operationsUpdate = operations.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-    }else if(e.target.value == "Mayor monto"){
-        operationsUpdate = operations.sort((a, b) => b.amount - a.amount);
-    }else if(e.target.value == "Menor monto"){
-        operationsUpdate = operations.sort((a, b) => a.amount - b.amount);
-    }else if(e.target.value == "A/Z"){
-        operationsUpdate = operations.sort((a, b) => {
-            if(a.description < b.description) return -1;
-            if(a.description > b.description) return 1;
-
-            return 0;
-        });
-    }else if(e.target.value == "Z/A"){
-        operationsUpdate = operations.sort((a, b) => {
-           
-            if(a.description < b.description) return 1;
-            if(a.description > b.description) return -1;
-        
-            return 0;
-        });
-    }else{
-        operationsUpdate = operations.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    }
-    getListOperations({ ...data, operations: operationsUpdate })
+    updateOperations()
 })
 
 bringCategories()
+
+

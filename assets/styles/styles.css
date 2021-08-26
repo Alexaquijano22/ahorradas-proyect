@@ -63,6 +63,28 @@ i{
     box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
 }
 
+.swal-modal{
+    background-color: #fdfaf3;
+    text-align: center;
+}
+
+.swal-button{
+    background-color: #ffa89a50;
+    color: #563c38;
+    font-family:'Nunito', sans-serif;
+    border: 1px solid #ffa89a;
+}
+.swal-button:hover {
+    background-color: #ffa89a !important;
+    border: 1px solid #ffa89a !important;
+}
+.swal-title{
+    font-family: 'Nunito', sans-serif;
+}
+.swal-text{
+    font-family: 'Nunito', sans-serif;
+}
+
 
 .primary-icon{
     font-size: 35px;
