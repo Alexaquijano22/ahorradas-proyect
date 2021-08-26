@@ -77,53 +77,72 @@ var editOperation = function (id) {
     init();
 };
 var getListOperations = function (data) {
+    console.log(data);
     listOperations.innerHTML = '';
-    var _loop_1 = function (operation) {
+    if (data.operations.length > 0) {
+        console.log(data);
+        var _loop_1 = function (operation) {
+            var div = document.createElement('div');
+            var description = document.createElement('h6');
+            var category = document.createElement('div');
+            var date = document.createElement('div');
+            var amount = document.createElement('div');
+            var actions = document.createElement('div');
+            var edit = document.createElement('a');
+            var remove = document.createElement('a');
+            var descriptionTxt = document.createTextNode("" + operation.description);
+            var categoryTxt = document.createTextNode("" + operation.category);
+            var dateTxt = document.createTextNode("" + operation.date);
+            var amountTxt = document.createTextNode(" " + (operation.type === "Ganancias" ? "+" : "-") + "$ " + operation.amount);
+            var editTxt = document.createTextNode("Editar");
+            var removeTxt = document.createTextNode("Eliminar");
+            div.setAttribute("class", "row mb-3");
+            description.setAttribute("class", "col");
+            category.setAttribute("class", "col-3");
+            date.setAttribute("class", "col d-flex justify-content-center");
+            amount.setAttribute("class", "col d-flex justify-content-center " + (operation.type === "Ganancias" ? "text-success" : "text-danger"));
+            actions.setAttribute("class", "col-3 d-flex justify-content-center align-items-center");
+            edit.setAttribute("class", "btn btn-outline-primary btn-sm");
+            remove.setAttribute("class", "btn btn-outline-secondary btn-sm");
+            actions.appendChild(edit);
+            actions.appendChild(remove);
+            edit.classList.add("me-2");
+            description.appendChild(descriptionTxt);
+            category.appendChild(categoryTxt);
+            date.appendChild(dateTxt);
+            amount.appendChild(amountTxt);
+            edit.appendChild(editTxt);
+            remove.appendChild(removeTxt);
+            div.appendChild(description);
+            div.appendChild(category);
+            div.appendChild(date);
+            div.appendChild(amount);
+            div.appendChild(actions);
+            listOperations.appendChild(div);
+            edit.setAttribute("href", "./edit-operation.html?description=" + operation.description + "&amount=" + operation.amount + "&type=" + operation.type + "&category=" + operation.category + "&date=" + operation.date);
+            remove.addEventListener('click', function () {
+                editOperation(operation.id);
+            });
+        };
+        for (var _i = 0, _a = data.operations; _i < _a.length; _i++) {
+            var operation = _a[_i];
+            _loop_1(operation);
+        }
+    }
+    else {
+        console.log("gola");
         var div = document.createElement('div');
-        var description = document.createElement('h6');
-        var category = document.createElement('div');
-        var date = document.createElement('div');
-        var amount = document.createElement('div');
-        var actions = document.createElement('div');
-        var edit = document.createElement('a');
-        var remove = document.createElement('a');
-        var descriptionTxt = document.createTextNode("" + operation.description);
-        var categoryTxt = document.createTextNode("" + operation.category);
-        var dateTxt = document.createTextNode("" + operation.date);
-        var amountTxt = document.createTextNode(" " + (operation.type === "Ganancias" ? "+" : "-") + "$ " + operation.amount);
-        var editTxt = document.createTextNode("Editar");
-        var removeTxt = document.createTextNode("Eliminar");
-        div.setAttribute("class", "row mb-3");
-        description.setAttribute("class", "col");
-        category.setAttribute("class", "col-3");
-        date.setAttribute("class", "col d-flex justify-content-center");
-        amount.setAttribute("class", "col d-flex justify-content-center " + (operation.type === "Ganancias" ? "text-success" : "text-danger"));
-        actions.setAttribute("class", "col-3 d-flex justify-content-center");
-        edit.setAttribute("class", "btn btn-outline-primary btn-sm");
-        remove.setAttribute("class", "btn btn-outline-secondary btn-sm");
-        actions.appendChild(edit);
-        actions.appendChild(remove);
-        edit.classList.add("me-2");
-        description.appendChild(descriptionTxt);
-        category.appendChild(categoryTxt);
-        date.appendChild(dateTxt);
-        amount.appendChild(amountTxt);
-        edit.appendChild(editTxt);
-        remove.appendChild(removeTxt);
-        div.appendChild(description);
-        div.appendChild(category);
-        div.appendChild(date);
-        div.appendChild(amount);
-        div.appendChild(actions);
+        var text = document.createElement('h5');
+        var img = document.createElement('img');
+        var textValue = document.createTextNode("Agrega operaciones o cambia los filtros");
+        text.appendChild(textValue);
+        img.setAttribute("src", "./assets/img/operationsEmpty.svg");
+        img.setAttribute("class", "m-4");
+        img.style.width = "25em";
+        div.appendChild(img);
+        div.appendChild(text);
+        div.setAttribute("class", "d-flex flex-column align-items-center text-center");
         listOperations.appendChild(div);
-        edit.setAttribute("href", "./edit-operation.html?description=" + operation.description + "&amount=" + operation.amount + "&type=" + operation.type + "&category=" + operation.category + "&date=" + operation.date);
-        remove.addEventListener('click', function () {
-            editOperation(operation.id);
-        });
-    };
-    for (var _i = 0, _a = data.operations; _i < _a.length; _i++) {
-        var operation = _a[_i];
-        _loop_1(operation);
     }
     objectBalance(data.operations);
     getBalance();

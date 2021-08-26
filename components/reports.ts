@@ -12,6 +12,9 @@ const highExpenseMonthValue = document.getElementById("highExpenseMonthValue")
 const listCategories = document.getElementById("list-categories")
 const monthsTotal = document.getElementById("months-total")
 
+const infoReportes = document.getElementById("info-reports")
+const reportesEmpty = document.getElementById("emptyReports")
+
 let data = getStorage()
     //Variables
 const { operations } = data
@@ -57,25 +60,30 @@ const createObjectDates = () => {
 }
 
 const calcHighEarning = (operations: Operations[]) => {
-    const operationsOrder = operations.sort((a, b) => b.amount - a.amount);
-    const highEarningLabel = document.createElement("label");
-    const highEarningTxt = document.createTextNode(operationsOrder[0].category)
-    const highEarningTxtValue = document.createTextNode(`+$ ${operationsOrder[0].amount}`)
-    highEarningLabel.appendChild(highEarningTxt)
-    highEarning.appendChild(highEarningLabel)
-    highEarningValue.appendChild(highEarningTxtValue)
-    highEarningValue.classList.add("text-success")
+    if(operations.length > 0){
+        const operationsOrder = operations.sort((a, b) => b.amount - a.amount);
+        const highEarningLabel = document.createElement("label");
+        const highEarningTxt = document.createTextNode(operationsOrder[0].category)
+        const highEarningTxtValue = document.createTextNode(`$ ${operationsOrder[0].amount}`)
+        highEarningLabel.appendChild(highEarningTxt)
+        highEarning.appendChild(highEarningLabel)
+        highEarningValue.appendChild(highEarningTxtValue)
+        highEarningValue.classList.add("text-success")
+    }
 }
 
 const calcHighExpense = (operations: Operations[]) => {
-    const operationsOrder = operations.sort((a, b) => b.amount - a.amount);
-    const highExpenseLabel = document.createElement("label");
-    const highExpenseTxt = document.createTextNode(operationsOrder[0].category)
-    const highExpenseTxtValue = document.createTextNode(`-$ ${operationsOrder[0].amount}`)
-    highExpenseLabel.appendChild(highExpenseTxt)
-    highExpense.appendChild(highExpenseLabel)
-    highExpenseValue.appendChild(highExpenseTxtValue)
-    highExpenseValue.classList.add("text-danger")
+    if(operations.length > 0){
+        const operationsOrder = operations.sort((a, b) => b.amount - a.amount);
+        console.log(operationsOrder[0]);
+        const highExpenseLabel = document.createElement("label");
+        const highExpenseTxt = document.createTextNode(operationsOrder[0].category)
+        const highExpenseTxtValue = document.createTextNode(`$ ${operationsOrder[0].amount}`)
+        highExpenseLabel.appendChild(highExpenseTxt)
+        highExpense.appendChild(highExpenseLabel)
+        highExpenseValue.appendChild(highExpenseTxtValue)
+        highExpenseValue.classList.add("text-danger")
+    }
 }
 
 const calcHighBalance = () => {
@@ -89,8 +97,8 @@ const calcHighBalance = () => {
 		}
 	}
     const highBalanceLabel = document.createElement("label");
-    const highBalanceTxt = document.createTextNode(categoryName)
-    const highBalanceTxtValue = document.createTextNode(`+$ ${maxBalance}`)
+    const highBalanceTxt = document.createTextNode(`${categoryName}`)
+    const highBalanceTxtValue = document.createTextNode(`$ ${maxBalance}`)
     highBalanceLabel.appendChild(highBalanceTxt)
     highBalance.appendChild(highBalanceLabel)
     highBalanceValue.appendChild(highBalanceTxtValue)
@@ -121,7 +129,7 @@ const calcHighEarningMonth = () => {
     }
     const highEarningMonthLabel = document.createElement("label");
     const highEarningMonthTxt = document.createTextNode(highMonth)
-    const highEarningMonthTxtValue = document.createTextNode(`+$ ${maxVal}`)
+    const highEarningMonthTxtValue = document.createTextNode(`$ ${maxVal}`)
     highEarningMonthLabel.appendChild(highEarningMonthTxt)
     highEarningMonth.appendChild(highEarningMonthLabel)
     highEarningMonthValue.appendChild(highEarningMonthTxtValue)
@@ -152,7 +160,7 @@ const calcHighExpenseMonth = () => {
     }
     const highExpenseMonthLabel = document.createElement("label");
     const highExpenseMonthTxt = document.createTextNode(highMonth)
-    const highExpenseMonthTxtValue = document.createTextNode(`-$ ${maxVal}`)
+    const highExpenseMonthTxtValue = document.createTextNode(`$ ${maxVal}`)
     highExpenseMonthLabel.appendChild(highExpenseMonthTxt)
     highExpenseMonth.appendChild(highExpenseMonthLabel)
     highExpenseMonthValue.appendChild(highExpenseMonthTxtValue)
@@ -179,10 +187,10 @@ for(const prop in objectCategories){
       const divBalance = document.createElement("div")
 
       const categoryTxt = document.createTextNode(prop)
-      const earningTxt = document.createTextNode(`+$ ${objectCategories[prop].Ganancias === undefined ? 0 : objectCategories[prop].Ganancias}`)
-      const expenseTxt = document.createTextNode(`-$ ${objectCategories[prop].Gastos === undefined ? 0 : objectCategories[prop].Gastos}`)
+      const earningTxt = document.createTextNode(`$ ${objectCategories[prop].Ganancias === undefined ? 0 : objectCategories[prop].Ganancias}`)
+      const expenseTxt = document.createTextNode(`$ ${objectCategories[prop].Gastos === undefined ? 0 : objectCategories[prop].Gastos}`)
       const valueBalance = calculateBalance(objectCategories[prop].Ganancias, objectCategories[prop].Gastos)
-      const balanceTxt = document.createTextNode(` ${valueBalance < 0 ? "-" : "+"}$ ${valueBalance < 0 ? Math.abs(valueBalance) : valueBalance}`)
+      const balanceTxt = document.createTextNode(`$ ${valueBalance < 0 ? Math.abs(valueBalance) : valueBalance}`)
 
       //Styles
       div.setAttribute("class", "row mt-3")
@@ -225,10 +233,10 @@ const getTotalMonths = () => {
             "Septiembre": i === "10" ? 
             "Octubre": i === "11" ? 
             "Noviembre" : "Diciembre"} de ${prop}`)
-            const earningTxt = document.createTextNode(`+$ ${objectYear[prop][i].Ganancias === undefined ? 0 : objectYear[prop][i].Ganancias}`)
-            const expenseTxt = document.createTextNode(`-$ ${objectYear[prop][i].Gastos === undefined ? 0 : objectYear[prop][i].Gastos}`)
+            const earningTxt = document.createTextNode(`$ ${objectYear[prop][i].Ganancias === undefined ? 0 : objectYear[prop][i].Ganancias}`)
+            const expenseTxt = document.createTextNode(`$ ${objectYear[prop][i].Gastos === undefined ? 0 : objectYear[prop][i].Gastos}`)
             const valueBalance = calculateBalance(objectYear[prop][i].Ganancias, objectYear[prop][i].Gastos)
-            const balanceTxt = document.createTextNode(`$ ${valueBalance < 0 ? "-" : "+"}$ ${valueBalance < 0 ? Math.abs(valueBalance) : valueBalance}`)
+            const balanceTxt = document.createTextNode(`$ ${valueBalance < 0 ? Math.abs(valueBalance) : valueBalance}`)
       
             //Styles
             div.setAttribute("class", "row mt-3")
@@ -253,15 +261,22 @@ const getTotalMonths = () => {
 
 
 const resumeGeneral = () => {
-    createObjectCategories();
-    createObjectDates();
-    calcHighEarning(operationsEaring)
-    calcHighExpense(operationsExpense)
-    calcHighBalance()
-    calcHighEarningMonth()
-    calcHighExpenseMonth()
-    getTotalCategories()
-    getTotalMonths()
+    if(operations.length > 1){
+        reportesEmpty.style.display = "none"
+        infoReportes.style.display = "block"
+        createObjectCategories();
+        createObjectDates();
+        calcHighEarning(operationsEaring)
+        calcHighExpense(operationsExpense)
+        calcHighBalance()
+        calcHighEarningMonth()
+        calcHighExpenseMonth()
+        getTotalCategories()
+        getTotalMonths()
+    }else{
+        reportesEmpty.style.display = "flex"
+        infoReportes.style.display = "none"
+    }
 }
 
 resumeGeneral()
