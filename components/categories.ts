@@ -46,14 +46,21 @@ const getListCategories = () => {
 formNewCategory.addEventListener("submit", (e) => {
     e.preventDefault()
     let data = getStorage()
-    data.categories.push({
-        name: nameCategory.value,
-        slug: slugify(nameCategory.value),
-        id: generateId(),
-    })
-    localStorage.setItem("data", JSON.stringify(data))
-    getListCategories()
-    formNewCategory.reset()
+    const { categories } = data
+    const foundRepeat = categories.filter(category => category.name.toUpperCase() === nameCategory.value.toUpperCase());
+    if(foundRepeat.length > 0){
+        swal("Tener en cuenta", "Categoría ya existente, por favor ingresa otro nombre", "info");
+    }else{
+        data.categories.push({
+            name: nameCategory.value,
+            slug: slugify(nameCategory.value),
+            id: generateId(),
+        })
+        localStorage.setItem("data", JSON.stringify(data))
+        getListCategories()
+        formNewCategory.reset()
+    }
+    
 })
 
 getListCategories()

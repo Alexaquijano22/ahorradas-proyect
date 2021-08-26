@@ -57,13 +57,20 @@ var getListCategories = function () {
 formNewCategory.addEventListener("submit", function (e) {
     e.preventDefault();
     var data = getStorage();
-    data.categories.push({
-        name: nameCategory.value,
-        slug: slugify(nameCategory.value),
-        id: generateId()
-    });
-    localStorage.setItem("data", JSON.stringify(data));
-    getListCategories();
-    formNewCategory.reset();
+    var categories = data.categories;
+    var foundRepeat = categories.filter(function (category) { return category.name.toUpperCase() === nameCategory.value.toUpperCase(); });
+    if (foundRepeat.length > 0) {
+        swal("Tener en cuenta", "Categoría ya existente, por favor ingresa otro nombre", "info");
+    }
+    else {
+        data.categories.push({
+            name: nameCategory.value,
+            slug: slugify(nameCategory.value),
+            id: generateId()
+        });
+        localStorage.setItem("data", JSON.stringify(data));
+        getListCategories();
+        formNewCategory.reset();
+    }
 });
 getListCategories();
